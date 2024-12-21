@@ -14,11 +14,11 @@ function divide(a, b) {
   return a / b
 }
 
-let firstNum
+let firstNum = '';
 
-let secondNum
+let secondNum = '';
 
-let operand
+let operand = '';
 
 function operate(firstNum, operand, secondNum) {
   if (operand === '+') {
@@ -30,7 +30,26 @@ function operate(firstNum, operand, secondNum) {
   } else if (operand === '/') {
     return divide(firstNum, secondNum)
   }
-} 
+}; 
+
+
+let numbers = document.querySelectorAll('#num');
+
+
+
+numbers.forEach((button) => button.addEventListener('click', () => {
+    display.textContent = firstNum;
+    if (display.textContent.charAt(0) === '0' ){
+      display.textContent = '';
+    };
+    display.textContent += button.value;
+    firstNum = display.textContent;
+    console.log(firstNum);
+    console.log(typeof firstNum);
+
+
+
+}));
 
 
 
