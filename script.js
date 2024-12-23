@@ -20,6 +20,8 @@ let secondNum = '';
 
 let operand = '';
 
+// function to run arithmetic operation on firstNum, operand, and secondNum depending on operator clicked
+
 function operate(firstNum, operand, secondNum) {
   if (operand === '+') {
     return sum(firstNum, secondNum)
@@ -32,22 +34,14 @@ function operate(firstNum, operand, secondNum) {
   }
 }; 
 
+// function to convert string to number, make sure it is 8 digits in all and remove trailing zeros
 
-let numbers = document.querySelectorAll('button');
+function result () {
+  return (parseFloat((operate(Number(firstNum), operand, Number(secondNum))).toPrecision(8)));
+}
 
 
-
-// numbers.forEach((button) => button.addEventListener('click', () => {
-//     display.textContent = firstNum;
-//     if (display.textContent.charAt(0) === '0' ){
-//       display.textContent = '';
-//     };
-//     display.textContent += button.value;
-//     firstNum = display.textContent;
-//     console.log(firstNum);
-//     console.log(typeof firstNum);
-// }));
-
+// function to reset all variables
 
 function initVariable() {
   firstNum = '';
@@ -55,21 +49,27 @@ function initVariable() {
   operand = '';
 }
 
+
+
+let numbers = document.querySelectorAll('button');
+
+
+
+
+
 numbers.forEach((button) => button.addEventListener('click', () => {
 
   if (button.value === 'reset') {
-    console.log('You have reset everything!');
     initVariable();
     display.textContent = '0';
-    console.log(`First Number is '${firstNum}', second number is '${secondNum}', operator is '${operand}'`)
   }
 
   if (button.value === '=' && firstNum.length === 0){
     console.log(`I'm doing nothing cause you clicked '=' when First Number is a ${typeof firstNum} and length is ${firstNum.length}`)
   } else if (button.value === '=' && firstNum.length !== 0 && secondNum.length !== 0) {
     console.log(`First number is '${firstNum}' second number is '${secondNum}' and operator is '${operand}'`);
-    console.log(operate(Number(firstNum), operand, Number(secondNum)));
-    display.textContent = operate(Number(firstNum), operand, Number(secondNum));
+    console.log(result());
+    display.textContent = result();
     initVariable();
   };
 
@@ -99,13 +99,26 @@ numbers.forEach((button) => button.addEventListener('click', () => {
 
 
 
-  if (button.value === '0' && typeof firstNum === 'string' && firstNum.length === 0) {
+  if (button.value === '0' && firstNum.length === 0) {
     console.log(`I'm doing nothing cause you clicked '${button.value}' when First Number is a ${typeof firstNum} and length is ${firstNum.length}`)
   };
 
 
+  if (button.value === '.' && firstNum.length === 0 && secondNum.length === 0 && operand.length === 0){
+    display.textContent = '0';
+
+  }
+
+  if (button.value === '.' && firstNum.length === 0) {
+    display.textContent += button.value;
+    firstNum = display.textContent;
+  };
 
 
+  if (button.value === '.' && operand.length !== 0 && secondNum.length === 0) {
+    display.textContent = '0' + '.';
+    secondNum = display.textContent;
+  }
 
 
 
@@ -121,7 +134,8 @@ numbers.forEach((button) => button.addEventListener('click', () => {
       button.value === '7' ||
       button.value === '8' ||
       button.value === '9' ||
-      (button.value === '0' &&  typeof firstNum === 'string' && firstNum.length !== 0))) {
+      (button.value === '0' && firstNum.length !== 0) ||
+      (button.value === '.' && (firstNum.indexOf('.') === -1)))){
         console.log(`You clicked '${button.value}'`);
         display.textContent = firstNum;
         display.textContent += button.value;
@@ -129,6 +143,8 @@ numbers.forEach((button) => button.addEventListener('click', () => {
         console.log(firstNum);
         console.log(firstNum.length);
   };
+  
+
   if ((typeof operand === 'string' && operand.length !== 0)  &&
     ((button.value === '1' ||
       button.value === '2' ||
@@ -139,7 +155,8 @@ numbers.forEach((button) => button.addEventListener('click', () => {
       button.value === '7' ||
       button.value === '8' ||
       button.value === '9' ||
-      (button.value === '0' &&  typeof secondNum === 'string' && secondNum.length !== 0)))) {
+      (button.value === '0' && secondNum.length !== 0) ||
+      button.value === '.' && (secondNum.indexOf('.') === -1)))) {
         console.log(`You clicked '${button.value}'`); 
         display.textContent = secondNum;
         display.textContent += button.value;
@@ -148,21 +165,21 @@ numbers.forEach((button) => button.addEventListener('click', () => {
   };
   
 if ((button.value === '+' || 
-            button.value === '-' ||
-            button.value === '*' ||
-            button.value === '/') &&
-            firstNum.length !== 0 && operand.length !== 0 && secondNum.length !== 0){
-              console.log(`First num is '${firstNum}' secondNum is '${secondNum}' operand is '${operand}'!`)
-              console.log('this is new');
-              display.textContent = (operate(Number(firstNum), operand, Number(secondNum)));
-              firstNum = (operate(Number(firstNum), operand, Number(secondNum)));
-              operand = button.value;
-              secondNum = ''
+      button.value === '-' ||
+      button.value === '*' ||
+      button.value === '/') &&
+      firstNum.length !== 0 && operand.length !== 0 && secondNum.length !== 0){
+        console.log(`First num is '${firstNum}' secondNum is '${secondNum}' operand is '${operand}'!`)
+        console.log('this is new');
+        display.textContent = (operate(Number(firstNum), operand, Number(secondNum)));
+        firstNum = (operate(Number(firstNum), operand, Number(secondNum)));
+        operand = button.value;
+        secondNum = ''
 };
   
 
 
-  if (button.value === '0' && (typeof firstNum === 'string' && firstNum.length !== 0) && (typeof operand === 'string' && operand.length !== 0)) {
+  if (button.value === '0' && ( firstNum.length !== 0) && (typeof operand === 'string' && operand.length !== 0)) {
     console.log(`I'm just checking`)
   }
 
