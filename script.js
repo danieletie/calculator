@@ -36,8 +36,9 @@ function operate(firstNum, operand, secondNum) {
   }
 }; 
 
-// function to convert string to number, make sure it is 8 digits in all and remove trailing zeros
-
+/*
+function to convert string result  to number, make sure it is 9 digits in all and remove trailing zeros
+*/
 
 
 function result () {
@@ -59,32 +60,38 @@ function initVariable() {
   operand = '';
 }
 
-
+// variable to target buttons
 
 let numbers = document.querySelectorAll('button');
 
 
 
-
+// event listener to listen to mouse click
 
 numbers.forEach((button) => button.addEventListener('click', () => {
 
+  // reset all variables and display when reset button is clicked
   if (button.value === 'reset') {
     initVariable();
     display.textContent = '0';
   }
+
+  // show result when equal button is cliecked also check for infinity
 
   if (button.value === '=' && firstNum.length === 0){
   } else if (button.value === '=' && firstNum.length !== 0 && secondNum.length !== 0) {
     if (result() === Infinity){
       display.textContent = result();
       initVariable();
-    }else {
+    } else {
       display.textContent = result();
       initVariable();
     }
   };
-    
+
+  /*
+  delete last digit of variables if del button is clicked, do nothing if operand was last clicked and set display to zero when variables become empty strings
+  */
 
   if (button.value === 'del' && firstNum.length !== 0 && operand.length === 0){
     firstNum = firstNum.slice(0, -1);
@@ -100,14 +107,15 @@ numbers.forEach((button) => button.addEventListener('click', () => {
     }
   };
 
-
+/*
+check when operator buttons are clicked and assign values to firstNum and secondNum as the case may be
+*/
 
   if ((button.value === '+' || 
       button.value === '-' ||
       button.value === '*' ||
       button.value === '/') && 
       firstNum.length === 0 && display.textContent === '0') {
-        console.log('ewo');
         firstNum = display.textContent;
         operand = button.value
   } else if ((button.value === '+' || 
@@ -115,7 +123,6 @@ numbers.forEach((button) => button.addEventListener('click', () => {
       button.value === '*' ||
       button.value === '/') &&
       display.textContent === '0' && firstNum.length !== 0 && operand.length !== 0){
-        console.log('saycheese');
         secondNum = display.textContent;
   }
 
@@ -124,25 +131,15 @@ numbers.forEach((button) => button.addEventListener('click', () => {
         button.value === '*' ||
         button.value === '/') && 
         (firstNum.length !== 0 && operand !== 0 && secondNum.length === 0)){
-          console.log('wahala');
           operand = button.value;
   };
 
 
-
-
-  // if (button.value === '0' && firstNum.length === 0) {
-  //   console.log('wtf');
-  // };
-
-
+  // check if buttons decimal button is clicked and variables are empty
   if (button.value === '.' && firstNum.length === 0) {
-    console.log('hey');
     display.textContent += button.value;
     firstNum = display.textContent;
   };
-
-
   if (button.value === '.' && operand.length !== 0 && secondNum.length === 0) {
     display.textContent = '0' + '.';
     secondNum = display.textContent;
@@ -150,7 +147,9 @@ numbers.forEach((button) => button.addEventListener('click', () => {
 
 
 
-
+/*
+check if buttons are numbers or decimal, assign and display them but stop accepting input when character limit is reached
+*/
 
   if ((operand.length === 0) && (firstNum.length <= 9) &&
       (button.value === '1' ||
@@ -191,6 +190,9 @@ numbers.forEach((button) => button.addEventListener('click', () => {
         console.log(secondNum);
   };
   
+  /*
+  check if button is operator, and first and second numbers are not empty, calc result and assign result to first number and set second number to an empty string
+  */
 
   if ((button.value === '+' || 
         button.value === '-' ||
@@ -213,23 +215,3 @@ numbers.forEach((button) => button.addEventListener('click', () => {
 
 }));
 
-
-
-
-
-
-console.log(sum (2, 2)) //should return 4
-
-console.log(subtract (2, 2)) //should return 0
-
-console.log(multiply (2, 2)) //should return 4
-
-console.log(divide (2, 2)) //should return 1
-
-console.log(operate(4, '+', 4)) //should return 8
-
-console.log(operate(20, '-', 6)) //should return 14
-
-console.log(operate(20, '*', 6)) //should return 120
-
-console.log(operate(20, '/', 2)) //should return 10
