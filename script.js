@@ -79,6 +79,21 @@ numbers.forEach((button) => button.addEventListener('click', () => {
   };
     
 
+  if (button.value === 'del' && firstNum.length !== 0 && operand.length === 0){
+    firstNum = firstNum.slice(0, -1);
+    display.textContent = firstNum;
+    if (firstNum === ''){
+      display.textContent = '0';
+    }    
+  } else if (button.value === 'del' && firstNum.length !== 0 && operand.length !== 0){
+    secondNum = secondNum.slice(0, -1);
+    display.textContent = secondNum;
+    if (secondNum === ''){
+      display.textContent = '0';
+    }
+  };
+
+
 
   if ((button.value === '+' || 
       button.value === '-' ||
@@ -101,7 +116,7 @@ numbers.forEach((button) => button.addEventListener('click', () => {
         button.value === '-' ||
         button.value === '*' ||
         button.value === '/') && 
-        firstNum.length !== 0 && operand !== 0 && secondNum.length === 0){
+        (firstNum.length !== 0 && operand !== 0 && secondNum.length === 0)){
           console.log('wahala');
           operand = button.value;
   };
@@ -109,9 +124,9 @@ numbers.forEach((button) => button.addEventListener('click', () => {
 
 
 
-  if (button.value === '0' && firstNum.length === 0) {
-    console.log('wtf');
-  };
+  // if (button.value === '0' && firstNum.length === 0) {
+  //   console.log('wtf');
+  // };
 
 
   if (button.value === '.' && firstNum.length === 0) {
