@@ -37,7 +37,7 @@ function operate(firstNum, operand, secondNum) {
 // function to convert string to number, make sure it is 8 digits in all and remove trailing zeros
 
 function result () {
-  if ((parseFloat((operate(Number(firstNum), operand, Number(secondNum))).toPrecision(8))) === Infinity){
+  if ((parseFloat((operate(Number(firstNum), operand, Number(secondNum))).toPrecision(9))) === Infinity){
     return 'lmao'
   }
   else return (parseFloat((operate(Number(firstNum), operand, Number(secondNum))).toPrecision(8)));
@@ -145,7 +145,7 @@ numbers.forEach((button) => button.addEventListener('click', () => {
 
 
 
-  if ((typeof operand === 'string' && operand.length === 0) &&
+  if ((operand.length === 0) && (firstNum.length <= 9) &&
       (button.value === '1' ||
       button.value === '2' ||
       button.value === '3' ||
@@ -166,7 +166,7 @@ numbers.forEach((button) => button.addEventListener('click', () => {
   };
   
 
-  if ((operand.length !== 0)  &&
+  if ((operand.length !== 0)  && (secondNum.length <= 9) &&
     ((button.value === '1' ||
       button.value === '2' ||
       button.value === '3' ||
@@ -177,7 +177,7 @@ numbers.forEach((button) => button.addEventListener('click', () => {
       button.value === '8' ||
       button.value === '9' ||
       (button.value === '0') ||
-      button.value === '.' && (secondNum.indexOf('.') === -1)))) { 
+      (button.value === '.' && (secondNum.indexOf('.') === -1))))) { 
         display.textContent = secondNum;
         display.textContent += button.value;
         secondNum = display.textContent;
