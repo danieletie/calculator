@@ -37,7 +37,10 @@ function operate(firstNum, operand, secondNum) {
 // function to convert string to number, make sure it is 8 digits in all and remove trailing zeros
 
 function result () {
-  return (parseFloat((operate(Number(firstNum), operand, Number(secondNum))).toPrecision(8)));
+  if ((parseFloat((operate(Number(firstNum), operand, Number(secondNum))).toPrecision(8))) === Infinity){
+    return 'lmao'
+  }
+  else return (parseFloat((operate(Number(firstNum), operand, Number(secondNum))).toPrecision(8)));
 }
 
 
@@ -65,51 +68,54 @@ numbers.forEach((button) => button.addEventListener('click', () => {
   }
 
   if (button.value === '=' && firstNum.length === 0){
-    console.log(`I'm doing nothing cause you clicked '=' when First Number is a ${typeof firstNum} and length is ${firstNum.length}`)
   } else if (button.value === '=' && firstNum.length !== 0 && secondNum.length !== 0) {
-    console.log(`First number is '${firstNum}' second number is '${secondNum}' and operator is '${operand}'`);
-    console.log(result());
-    display.textContent = result();
-    initVariable();
+    if (result() === Infinity){
+      display.textContent = result();
+      initVariable();
+    }else {
+      display.textContent = result();
+      initVariable();
+    }
   };
-
- 
+    
 
 
   if ((button.value === '+' || 
       button.value === '-' ||
       button.value === '*' ||
       button.value === '/') && 
-      firstNum.length === 0) {
-        console.log(`I'm doing nothing cause you clicked '${button.value}' when First Number is a ${typeof firstNum} and length is ${firstNum.length}`)
+      firstNum.length === 0 && display.textContent === '0') {
+        console.log('ewo');
+        firstNum = display.textContent;
+        operand = button.value
   } else if ((button.value === '+' || 
-              button.value === '-' ||
-              button.value === '*' ||
-              button.value === '/') && 
-              firstNum.length !== 0 && operand.length === 0 && secondNum.length === 0) {
-                console.log('assign button value')
-                operand = button.value;
-                console.log(operand);
+      button.value === '-' ||
+      button.value === '*' ||
+      button.value === '/') &&
+      display.textContent === '0' && firstNum.length !== 0 && operand.length !== 0){
+        console.log('saycheese');
+        secondNum = display.textContent;
+  }
+
+  if ((button.value === '+' || 
+        button.value === '-' ||
+        button.value === '*' ||
+        button.value === '/') && 
+        firstNum.length !== 0 && operand !== 0 && secondNum.length === 0){
+          console.log('wahala');
+          operand = button.value;
   };
-
-
-
-
 
 
 
 
   if (button.value === '0' && firstNum.length === 0) {
-    console.log(`I'm doing nothing cause you clicked '${button.value}' when First Number is a ${typeof firstNum} and length is ${firstNum.length}`)
+    console.log('wtf');
   };
 
 
-  if (button.value === '.' && firstNum.length === 0 && secondNum.length === 0 && operand.length === 0){
-    display.textContent = '0';
-
-  }
-
   if (button.value === '.' && firstNum.length === 0) {
+    console.log('hey');
     display.textContent += button.value;
     firstNum = display.textContent;
   };
@@ -145,7 +151,7 @@ numbers.forEach((button) => button.addEventListener('click', () => {
   };
   
 
-  if ((typeof operand === 'string' && operand.length !== 0)  &&
+  if ((operand.length !== 0)  &&
     ((button.value === '1' ||
       button.value === '2' ||
       button.value === '3' ||
@@ -155,39 +161,33 @@ numbers.forEach((button) => button.addEventListener('click', () => {
       button.value === '7' ||
       button.value === '8' ||
       button.value === '9' ||
-      (button.value === '0' && secondNum.length !== 0) ||
-      button.value === '.' && (secondNum.indexOf('.') === -1)))) {
-        console.log(`You clicked '${button.value}'`); 
+      (button.value === '0') ||
+      button.value === '.' && (secondNum.indexOf('.') === -1)))) { 
         display.textContent = secondNum;
         display.textContent += button.value;
         secondNum = display.textContent;
         console.log(secondNum);
   };
   
-if ((button.value === '+' || 
-      button.value === '-' ||
-      button.value === '*' ||
-      button.value === '/') &&
-      firstNum.length !== 0 && operand.length !== 0 && secondNum.length !== 0){
-        console.log(`First num is '${firstNum}' secondNum is '${secondNum}' operand is '${operand}'!`)
-        console.log('this is new');
-        display.textContent = (operate(Number(firstNum), operand, Number(secondNum)));
-        firstNum = (operate(Number(firstNum), operand, Number(secondNum)));
-        operand = button.value;
-        secondNum = ''
-};
-  
 
-
-  if (button.value === '0' && ( firstNum.length !== 0) && (typeof operand === 'string' && operand.length !== 0)) {
-    console.log(`I'm just checking`)
-  }
-
-
-
-
-
-
+  if ((button.value === '+' || 
+        button.value === '-' ||
+        button.value === '*' ||
+        button.value === '/') &&
+        firstNum.length !== 0 && operand.length !== 0 && secondNum.length !== 0){
+          console.log(`First num is '${firstNum}' secondNum is '${secondNum}' operand is '${operand}'!`)
+          console.log('this is new');
+          if (display.textContent ==='0'){
+            console.log('gotcha');
+            display.textContent = result();
+            initVariable();
+          } else {
+            display.textContent = result();
+            firstNum = display.textContent;
+            operand = button.value;
+            secondNum = '';
+          };
+  };
 
 }));
 
