@@ -20,6 +20,8 @@ let secondNum = '';
 
 let operand = '';
 
+let newNumber = 0;
+
 // function to run arithmetic operation on firstNum, operand, and secondNum depending on operator clicked
 
 function operate(firstNum, operand, secondNum) {
@@ -36,12 +38,17 @@ function operate(firstNum, operand, secondNum) {
 
 // function to convert string to number, make sure it is 8 digits in all and remove trailing zeros
 
+
+
 function result () {
-  if ((parseFloat((operate(Number(firstNum), operand, Number(secondNum))).toPrecision(9))) === Infinity){
+  newNumber = ((operate(Number(firstNum), operand, Number(secondNum))).toPrecision(9));
+  if (parseFloat(newNumber) === Infinity){
     return 'lmao'
-  }
-  else return (parseFloat((operate(Number(firstNum), operand, Number(secondNum))).toPrecision(8)));
+  }else if ((parseFloat(newNumber).toString()).length >= 10){
+    return parseFloat(newNumber).toExponential(4);
+  }else return parseFloat(newNumber);
 }
+
 
 
 // function to reset all variables
